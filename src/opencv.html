@@ -1,0 +1,34 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using opencv in web worker</title>
+    <link href="./index.css" rel="stylesheet" />
+
+    <script
+      async
+      src="https://docs.opencv.org/4.8.0/opencv.js"
+      type="text/javascript"
+      id="opencv"
+    ></script>
+    <script src="opencv/components/index.mjs" type="module"></script>
+    <script src="opencv/index.mjs" type="module"></script>
+  </head>
+  <body>
+    <div class="loading">請稍後，載入資源中...</div>
+    <input
+      type="checkbox"
+      id="use-worker"
+      name="use-worker"
+    />
+    <label for="use-worker">
+      使用 web worker
+    </label>
+
+    <custom-slider id="slider" value="0"></custom-slider>
+
+    <h4 class="time">運算時間：</h4>
+    <canvas id="canvasInput" style="display: none"></canvas>
+    <canvas id="canvasOutput"></canvas>
+  </body>
+</html>

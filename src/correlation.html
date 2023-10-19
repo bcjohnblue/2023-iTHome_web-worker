@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<pre id="output"></pre>
+<button id="start">Start</button>
+<script language="javascript+worker" id="workerCode">
+  function randomKey(len) {
+    return new Array(len)
+      .fill(0)
+      .map(() => Math.floor(Math.random() * 16).toString(16))
+      .join('');
+  }
+  function generateObject(breadth, depth, len = 16) {
+    if (depth == 0) {
+      return randomKey(len);
+    }
+    const r = {};
+    for (let i = 0; i < breadth; i++) {
+      r[randomKey(len)] = generateObject(breadth, depth - 1, len);
+    }
+    return r;
+  }
+
+  let lastObj = {};
+
+  function nextEvent(el, name) {
+    return new Promise((resolve) => {
+      el.addEventListener(name, resolve, { once: true });
+    });
+  }
+
+  async function run() {
+    // Let main thread know we are ready to receive
+    postMessage('READY');
+    // Message loop:
+    // - Wait for an object configuration
+    // - Generate that object
+    // - Let main thread know we are done generating
+    // - Wait for go signal
+    // - Send object to main thread
+    while (true) {
+      const ev = await nextEvent(self, 'message');
+      const { breadth, depth, len } = ev.data;
+      const obj = generateObject(breadth, depth, len);
+      postMessage('READY');
+      await nextEvent(self, 'message');
+      postMessage(obj);
+    }
+  }
+  run();
+</script>
+<script>
+  function nextEvent(el, name) {
+    return new Promise((resolve) => {
+      el.addEventListener(name, resolve, { once: true });
+    });
+  }
+
+  const defaults = {
+    numIterations: 1000,
+    before() {},
+    after() {}
+  };
+  // Benchmark runs `fn` a number of times (given by `numIterations`),
+  // measuring the time each call takes and return an array of durations.
+  // before() and after() are run before and after each `fn` invocation
+  // but are not incorporated in the measurement.
+  async function benchmark(opts) {
+    const { before, fn, after, numIterations } = { ...defaults, ...opts };
+
+    const results = new Array(numIterations).fill(-1);
+    for (const idx of results.keys()) {
+      const ctx = {};
+      await before.call(ctx);
+      const start = performance.now();
+      const data = await fn.call(ctx);
+      const end = performance.now();
+      await after.call(ctx);
+      results[idx] = end - start;
+      console.log('data', data);
+      console.log('results', results[idx]);
+    }
+    return results;
+  }
+
+  function blobFromTag(el) {
+    const content = el.innerHTML;
+    const blob = new Blob([content], { type: 'text/javascript' });
+    const blobURL = URL.createObjectURL(blob);
+    return blobURL;
+  }
+
+  async function run(ev) {
+    // Remove button for easy copy/paste
+    ev.target.remove();
+    document.all.output.innerHTML = '';
+
+    console.log('Starting worker');
+    const worker = new Worker(blobFromTag(document.all.workerCode));
+    // Wait for worker to be ready
+    await nextEvent(worker, 'message');
+
+    let len = 4;
+    let breadth = 1;
+    let depth = 1;
+    const before = async () => {
+      worker.postMessage({ breadth, depth, len });
+      await nextEvent(worker, 'message');
+    };
+    const fn = async () => {
+      // Start signal
+      worker.postMessage(null);
+      const ev = await nextEvent(worker, 'message');
+      return ev.data;
+    };
+
+    console.log('Warm up for optimizing compiler');
+    for (let i = 1; i < 5; i++) {
+      breadth = depth = i;
+      await benchmark({
+        numIterations: 100,
+        before,
+        fn
+      });
+    }
+    console.log('Warm up done');
+
+    console.log('Running tests');
+    const max = 6;
+    for (len = 2; len < 1 << 12; len = len << 1) {
+      for (breadth = 1; breadth <= max; breadth++) {
+        for (depth = 1; depth <= max; depth++) {
+          console.log(`Running test for (${breadth};${depth})`);
+          const result = await benchmark({
+            numIterations: 100,
+            before,
+            fn
+          });
+          worker.postMessage({ breadth, depth, len });
+          await nextEvent(worker, 'message');
+          const obj = await fn();
+          const size = JSON.stringify(obj).length;
+          document.all.output.innerHTML += `${size},${result.join(',')}\n`;
+        }
+      }
+    }
+    console.log('DONE');
+  }
+  document.all.start.onclick = run;
+</script>

@@ -1,0 +1,92 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="./index.css" rel="stylesheet" />
+
+    <!-- <link
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+      as="script"
+    />
+    <link
+      rel="modulepreload"
+      href="https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm"
+      as="script"
+    /> -->
+    <!-- onload="onOpenCvReady();" -->
+    <!-- <script
+      async
+      src="https://docs.opencv.org/3.4.0/opencv.js"
+      type="text/javascript"
+    ></script> -->
+    <!-- <script src="./constants/index.js"></script> -->
+    <!-- <script src="./utils/index.js"></script> -->
+    <!-- <script src="main.mjs" type="module"></script> -->
+    <!-- <script src="stream.mjs" type="module"></script> -->
+    <!-- <script src="transfer.js"></script> -->
+    <!-- <script src="image-data-worker.js" type="module"></script> -->
+    <script src="test.mjs" type="module"></script>
+
+    <!-- <script
+      src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+      crossorigin=""
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script> -->
+    <!-- <script
+      src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm"
+      type="module"
+    ></script> -->
+  </head>
+  <body>
+    <div>
+      <div class="animation"></div>
+      <div>
+        <div class="title">調整透明度 (0~1)：</div>
+        <input
+          value="0.5"
+          type="number"
+          max="1"
+          min="0"
+          step="0.05"
+          class="bounding-opacity"
+        />
+        <div class="title">調整邊緣影響範圍比例 (0~0.5)：</div>
+        <input
+          value="0.05"
+          type="number"
+          max="0.5"
+          min="0"
+          step="0.05"
+          class="bounding-ratio"
+        />
+      </div>
+      <div class="row button-container">
+        <button class="worker">使用 worker</button>
+        <button class="no-worker">不使用 worker</button>
+        <!-- <button class="clear">清除圖案</button> -->
+      </div>
+
+      <div class="time">總耗時：</div>
+
+      <div class="row">
+        <div>
+          <div>原圖</div>
+          <img
+            class="origin"
+            src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Nacreous_clouds_Antarctica.jpg"
+          />
+        </div>
+        <div>
+          <div>結果</div>
+          <img class="result" />
+        </div>
+      </div>
+    </div>
+    <!-- Web Worker -->
+    <!-- <img src="./800px-OpenCV_Logo_with_text_svg_version.svg.png" alt="opencv" id="opencvImg"> -->
+    <!-- <canvas id="canvasInput"></canvas> -->
+    <!-- <canvas id="canvasOutput"></canvas> -->
+  </body>
+</html>

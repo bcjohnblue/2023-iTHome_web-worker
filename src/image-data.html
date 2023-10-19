@@ -1,0 +1,71 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="./index.css" rel="stylesheet" />
+
+    <script src="image-data/index.mjs" type="module"></script>
+  </head>
+  <body>
+    <div>
+      <div class="animation"></div>
+      <div>
+        <div class="title">調整透明度 (0~1)：</div>
+        <input
+          value="0.5"
+          type="number"
+          max="1"
+          min="0"
+          step="0.05"
+          class="bounding-opacity"
+        />
+        <div class="title">調整圖片外框影響比例 (0~0.5)：</div>
+        <input
+          value="0.05"
+          type="number"
+          max="0.5"
+          min="0"
+          step="0.05"
+          class="bounding-ratio"
+        />
+      </div>
+
+      <div class="row button-container">
+        <button class="worker">使用 worker</button>
+        <button class="no-worker">不使用 worker</button>
+      </div>
+
+      <div class="times">
+        <h4>運算時間</h4>
+        <div class="loadImage-time">載入圖片 (img.onload)：</div>
+        <div class="imageData-time">操作圖片像素 (ImageData)：</div>
+        <div class="getImageData-time">取得圖片像素 (getImageData)：</div>
+        <div class="putImageData-time">更新圖片像素 (putImageData)：</div>
+        <div class="total-time">總耗時：</div>
+      </div>
+
+      <div class="row">
+        <div>
+          <div>原圖</div>
+          <!-- 高解析度圖片 -->
+          <img
+            class="origin"
+            src="https://img3.wallspic.com/crops/9/8/3/8/4/148389/148389-tian_kong-yin_he_xi-kong_jian-tian_wen_xue-qi_fen-7680x4320.jpg
+            "
+          />
+
+          <!-- 低解析度圖片 -->
+          <!-- <img
+            class="origin"
+            src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Nacreous_clouds_Antarctica.jpg
+            "
+          /> -->
+        </div>
+        <div class="result-container">
+          <div>結果</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

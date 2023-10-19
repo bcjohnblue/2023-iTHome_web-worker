@@ -1,0 +1,33 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="./index.css" rel="stylesheet" />
+    <link href="./opencv/components/index.css" rel="stylesheet" />
+
+    <!-- onload="onOpenCvReady();" -->
+    <script
+      async
+      src="https://docs.opencv.org/4.8.0/opencv.js"
+      type="text/javascript"
+    ></script>
+    <script src="opencv/components/index.mjs" type="module"></script>
+    <script src="opencv/index.mjs" type="module"></script>
+  </head>
+  <body>
+    <custom-slider id="slider" value="0"></custom-slider>
+    <div>
+      <button>Run</button>
+    </div>
+
+    <!-- Web Worker -->
+    <!-- <img
+      src="./800px-OpenCV_Logo_with_text_svg_version.svg.png"
+      alt="opencv"
+      id="opencvImg"
+    /> -->
+    <canvas id="canvasInput"></canvas>
+    <canvas id="canvasOutput"></canvas>
+  </body>
+</html>

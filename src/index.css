@@ -1,0 +1,63 @@
+canvas {
+  width: 400px;
+  height: 400px;
+  border: 1px solid gray;
+}
+.time {
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+.loading {
+  color: red;
+  margin-bottom: 12px;
+}
+
+img {
+  width: 400px;
+  height: 400px;
+}
+.title {
+  /* margin-top: 4px; */
+}
+.start {
+  margin-top: 12px;
+}
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.button-container {
+  margin-top: 8px;
+}
+
+.times {
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+.animation {
+  width: 30px;
+  height: 30px;
+  background-color: red;
+}
+
+h4 {
+  margin: 0;
+}
+
+/* #canvasOutput {
+  width: 800px;
+  height: 800px;
+} */
+
+
+table,
+th,
+td {
+  border: 1px solid #333;
+  border-collapse: collapse;
+  padding: 4px 6px;
+  text-align: center;
+}

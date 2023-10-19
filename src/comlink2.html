@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dedicated worker</title>
+    <meta charset="UTF-8" />
+    <style>
+      input {
+        width: 50px;
+      }
+      button {
+        cursor: pointer;
+      }
+      a {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .row {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>Dedicated worker - import</h1>
+
+      <p>在 worker 中計算加法</p>
+
+      <div class="row">
+        <input type="number" class="plus" value="2" />
+        +
+        <input type="number" class="plus" value="3" />
+        =
+        <span class="result-plus"></span>
+      </div>
+
+      <div class="row">
+        <input type="number" class="multiply" value="2" />
+        *
+        <input type="number" class="multiply" value="3" />
+        =
+        <span class="result-multiply"></span>
+      </div>
+
+      <button>計算</button>
+    </div>
+
+    <script src="./comlink2.mjs" type="module"></script>
+  </body>
+</html>

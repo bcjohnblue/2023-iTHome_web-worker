@@ -1,0 +1,78 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="./index.css" rel="stylesheet" />
+
+    <script src="hardware-concurrency/index.mjs" type="module"></script>
+  </head>
+  <body>
+    <div>
+      <div>
+        <span class="title">輸入在多少數字以下尋找質數：</span>
+        <input
+          value="100"
+          type="number"
+          max="1000"
+          min="10"
+          step="10"
+          class="number-count"
+        />
+        <span>萬</span>
+      </div>
+
+      <div class="row button-container">
+        <span class="title">使用 worker 數：</span>
+        <input
+          value="1"
+          type="number"
+          max="1000"
+          min="1"
+          step="1"
+          class="worker-count"
+        />
+        <input
+          type="checkbox"
+          id="hardware-concurrency"
+          name="hardware-concurrency"
+        />
+        <label for="hardware-concurrency"
+          >使用電腦 CPU 核心數(hardwareConcurrency)
+        </label>
+      </div>
+
+      <button class="run">Run</button>
+      <button class="clear">Clear</button>
+
+      <div>-----------------------------------------------------</div>
+      <div class="row">
+        <span>找到的質數總數：</span>
+        <span class="result"></span>
+      </div>
+
+      <div class="times">
+        <h4>運算時間：</h4>
+        <table>
+          <colgroup>
+            <col style="width: 10%" />
+            <col style="width: 30%" />
+            <col style="width: 30%" />
+            <col style="width: 30%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th>總時間</th>
+              <th>總數量 (萬)</th>
+              <th>worker 使用數</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- render time result -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
